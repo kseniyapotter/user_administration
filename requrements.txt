@@ -1,0 +1,9 @@
+Python 3.6.5
+django 2.0.6
+psycopg2
+
+
+create local_settings.py from local_settings.py.sample
+create superuser
+create group for stuff
+
