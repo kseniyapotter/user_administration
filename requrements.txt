@@ -1,6 +1,7 @@
 Python 3.6.5
 django 2.0.6
 psycopg2
+django-localflavor
 
 
 create local_settings.py from local_settings.py.sample
