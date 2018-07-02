@@ -1,8 +1,6 @@
 from django.contrib import admin
 from .models import CustomerUser
 
-#@@staff_member_required  # TODO think about it
-@admin.register(CustomerUser)
 class CustomerUserAdmin(admin.ModelAdmin):
     readonly_fields = ('user_created', )
     list_display = ('first_name', 'last_name', 'iban')
@@ -27,3 +25,6 @@ class CustomerUserAdmin(admin.ModelAdmin):
         if obj and obj.user_created != request.user and not request.user.is_superuser:
             return False
         return True
+
+admin.site.login_template = 'admin/admin_login.html' 
+admin.site.register(CustomerUser)

@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
+from django.contrib import messages
 
-# Create your views here.
+def login_error(request):
+    messages.add_message(request, messages.ERROR, 
+    'Please use the correct Google account (same email with a staff account).')
+
+    return redirect('/admin')

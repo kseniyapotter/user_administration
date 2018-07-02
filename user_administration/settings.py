@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3a-td)fd(=&jq75a*($r0pr^70(hgx)t&9nd*!&)^x77(a^o8q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'localflavor',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -49,9 +50,26 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'user_administration.urls'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/admin'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/admin/error'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'prompt': 'select_account',
+}
+
 
 TEMPLATES = [
     {
@@ -64,10 +82,40 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',  
+    'social.pipeline.social_auth.auth_allowed', 
+    'social.pipeline.social_auth.social_user',  
+    'social.pipeline.user.get_username',  
+    'social.pipeline.social_auth.associate_by_email',  
+    'social.pipeline.social_auth.associate_user',  
+    'social.pipeline.social_auth.load_extra_data',  
+    'social.pipeline.user.user_details',  
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+'https://www.googleapis.com/auth/userinfo.email',
+'https://www.googleapis.com/auth/userinfo.profile'
+]
+
+# Google+ SignIn (google-plus)
+SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
+'https://www.googleapis.com/auth/plus.login',
+'https://www.googleapis.com/auth/userinfo.email',
+'https://www.googleapis.com/auth/userinfo.profile'
+]
+
+LOGIN_URL = '/account/login/'
 
 WSGI_APPLICATION = 'user_administration.wsgi.application'
 
