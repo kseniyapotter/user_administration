@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import CustomerUser
 
+
 class CustomerUserAdmin(admin.ModelAdmin):
     readonly_fields = ('user_created', )
     list_display = ('first_name', 'last_name', 'iban')
@@ -11,20 +12,23 @@ class CustomerUserAdmin(admin.ModelAdmin):
         if not request.user.is_superuser and 'delete_selected' in actions:
             del actions['delete_selected']
         return actions
-    
+
     def save_model(self, request, obj, form, change):
-        obj.user_created = request.user  
+        obj.user_created = request.user
         obj.save()
 
     def has_change_permission(self, request, obj=None):
-        if obj and obj.user_created != request.user and not request.user.is_superuser:
+        if (obj and obj.user_created != request.user
+                and not request.user.is_superuser):
             return False
         return True
 
     def has_delete_permission(self, request, obj=None):
-        if obj and obj.user_created != request.user and not request.user.is_superuser:
+        if (obj and obj.user_created != request.user
+                and not request.user.is_superuser):
             return False
         return True
 
-admin.site.login_template = 'admin/admin_login.html' 
-admin.site.register(CustomerUser)
+
+admin.site.login_template = 'admin/admin_login.html'
+admin.site.register(CustomerUser, CustomerUserAdmin)

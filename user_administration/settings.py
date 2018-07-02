@@ -91,28 +91,28 @@ TEMPLATES = [
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',  
-    'social.pipeline.social_auth.auth_allowed', 
-    'social.pipeline.social_auth.social_user',  
-    'social.pipeline.user.get_username',  
-    'social.pipeline.social_auth.associate_by_email',  
-    'social.pipeline.social_auth.associate_user',  
-    'social.pipeline.social_auth.load_extra_data',  
-    'social.pipeline.user.user_details',  
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
 )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-'https://www.googleapis.com/auth/userinfo.email',
-'https://www.googleapis.com/auth/userinfo.profile'
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
 ]
 
 # Google+ SignIn (google-plus)
 SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
-'https://www.googleapis.com/auth/plus.login',
-'https://www.googleapis.com/auth/userinfo.email',
-'https://www.googleapis.com/auth/userinfo.profile'
+    'https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
 ]
 
 LOGIN_URL = '/account/login/'
@@ -125,8 +125,11 @@ WSGI_APPLICATION = 'user_administration.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

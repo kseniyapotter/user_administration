@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from localflavor.generic.models import IBANField
 from localflavor.generic.countries.sepa import IBAN_SEPA_COUNTRIES
 
+
 class CustomerUser(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
