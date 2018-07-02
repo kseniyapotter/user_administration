@@ -17,7 +17,7 @@ $ docker-compose exec web ./manage.py migrate
 $ docker-compose exec web ./manage.py createsuperuser
 
 
-Open http://127.0.0.1:8000/admin, login as superuser and create a group with permissions 'add', 'change', 'delete' for 'customer user'. Create users with 'Staff status' belong to this group.
+Open http://127.0.0.1:8000/admin, login as superuser and create a group with permissions 'add', 'change', 'delete' for 'customer user'. Create users with 'Staff status' belong to this group. These users are the Administrators.
 
 Create google OAuth 2.0 in Google Developers Console (https://console.developers.google.com/)
 Add key and secret to local_settings.py.
